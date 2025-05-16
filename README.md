@@ -12,7 +12,7 @@ Implement a linear regression to predict car prices based on mileage.
 2. Normalizes the mileages and prices extracted from the dataset
 3. Applies the gradient descent algorithm. Returns the thetas (thetas[0] -> b, thetas[1] -> w) that reduce the cost function as much as possible.
 4. De-normalizes the thetas
-5. Plots the dataset's dots and the linear regression based on the formula: '''price = w * mileage + b'''
+5. Plots the dataset's dots and the linear regression based on the formula: **price = w * mileage + b**
 6. Saves the thetas into thetas.json to be able to use them when running prediction.py
 
 ### Program prediction.py:
