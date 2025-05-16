@@ -1,6 +1,31 @@
 import sys
-from training import Static
+import json #pour récupérer les thetas du json file dans lequel training.py a sauvegardé leurs valeurs
+import matplotlib.pyplot as plt #library used for data visualization
+import numpy as np #library used for computations
 
+def plot_data(mileage, thetas, predicted_price):
+	# Load the dataset
+	data = np.loadtxt("data.csv", delimiter=",", skiprows=1) #skipping the first row that holds the titles
+	dataset_mileage = data[:,0]
+	dataset_price = data[:,1]
+	plt.scatter(dataset_mileage, dataset_price, color='blue', label='Data Points')
+	regression_line = thetas[1] * dataset_mileage + thetas[0]
+	plt.plot(dataset_mileage, regression_line, color='red', label='Regression Line')
+	plt.scatter(mileage, predicted_price, color='green', label='Predicted Price', marker='x', s=100, linewidths=2)
+	plt.xlabel("Mileage")
+	plt.ylabel("Price")
+	plt.title("Predicted price of a car for a given mileage")
+	plt.show()
+
+def load_thetas():
+	'''This function loads the thetas from the json file where training.py has saved them.'''
+	try:
+		with open('thetas.json', 'r') as f:
+			thetas = json.load(f)
+	except FileNotFoundError:
+		print("Thetas file not found. Please run training.py first.")
+		sys.exit()
+	return thetas
 
 def main(): #clean code : no need for a main in python but increases readability
 	'''Predicts the price of a car for a given mileage'''
@@ -12,14 +37,17 @@ def main(): #clean code : no need for a main in python but increases readability
 	if (mileage < 0):
 		print("The mileage has to be positive.")
 		sys.exit() #equivalent of return 1 from main in C
-	if (mileage > 1,000,000)
+	if (mileage > 1000000):
 		print("No car has such a high mileage.")
 		sys.exit()
 
-	thetas = Static.get_thetas() #retrieves thetas from training.py
+	thetas = load_thetas()
 
 	predicted_price = thetas[1] * mileage + thetas[0]
 	print(f"Estimated price : {predicted_price}$")
+
+	#plot to show during peer-evaluation
+	plot_data(mileage, thetas, predicted_price)
 	
 	
 
