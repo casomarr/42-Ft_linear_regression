@@ -4,8 +4,7 @@ import matplotlib.pyplot as plt #library used for data visualization
 import numpy as np #library used for computations
 
 def plot_data(mileage, thetas, predicted_price):
-	# Load the dataset
-	data = np.loadtxt("data.csv", delimiter=",", skiprows=1) #skipping the first row that holds the titles
+	data = np.loadtxt("data.csv", delimiter=",", skiprows=1)
 	dataset_mileage = data[:,0]
 	dataset_price = data[:,1]
 	plt.scatter(dataset_mileage, dataset_price, color='blue', label='Data Points')
@@ -27,7 +26,7 @@ def load_thetas():
 		sys.exit()
 	return thetas
 
-def main(): #clean code : no need for a main in python but increases readability
+def main():
 	'''Predicts the price of a car for a given mileage'''
 
 	try:
@@ -36,23 +35,16 @@ def main(): #clean code : no need for a main in python but increases readability
 		print("Invalid mileage: should be a numeric value")
 	if (mileage < 0):
 		print("The mileage has to be positive.")
-		sys.exit() #equivalent of return 1 from main in C
+		sys.exit()
 	if (mileage > 1000000):
 		print("No car has such a high mileage.")
 		sys.exit()
 
 	thetas = load_thetas()
-
 	predicted_price = thetas[1] * mileage + thetas[0]
 	print(f"Estimated price : {predicted_price}$")
-
-	#plot to show during peer-evaluation
 	plot_data(mileage, thetas, predicted_price)
 	
 	
-
 if __name__ == "__main__":
 	main()
-#good practice : ensures that the main() 
-#function is only executed when the script is run directly, 
-# not when it is imported as a module.
