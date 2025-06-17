@@ -9,17 +9,25 @@ Implement a linear regression to predict car prices based on mileage.
 
 ### Program training.py:
 1. Loads the data from the data.csv dataset that contains mileages and their associated prices.
-2. Normalizes the mileages and prices extracted from the dataset
-3. Applies the gradient descent algorithm. Returns the thetas (thetas[0] -> b, thetas[1] -> w) that reduce the cost function as much as possible.
-4. De-normalizes the thetas
+2. Normalizes the mileages and prices extracted from the dataset to accelerate the convergence of 
+the gradient descent (= the convergence between the thetas used to make the linear regression and 
+the lowest cost function). The normalization process ensures that all data points on a similar scale and therefore alows to 
+use a single learning rate for both thetas.
+3. Applies the gradient descent algorithm. Returns the thetas (thetas[0] -> b, thetas[1] -> w) that reduce the cost function as much as possible. 
+4. De-normalizes the thetas.
 5. Plots the dataset's dots and the linear regression based on the formula: **price = w * mileage + b**
 6. Saves the thetas into thetas.json to be able to use them when running prediction.py
 
 ### Program prediction.py:
-1. Prompts the user for a mileage input
-2. Loads the thetas from the thetas.json file
-3. Outputs the predicted price by applying the linear regression formula
-4. Plots the predicted price on the linear regression as well as the dataset's dots
+1. Prompts the user for a mileage input.
+2. Loads the thetas' values from the thetas.json file created by training.py
+3. Outputs the predicted price by applying the linear regression formula.
+4. Plots the predicted price on the linear regression as well as the dataset's dots.
+
+### Explanation graphs:
+![Explanation Graphs](images/plot_1.png)
+![Gradient Descent Convergence](images/image.png)
+![Loss Function](images/loss_function.png)
 
 ## Installation
 

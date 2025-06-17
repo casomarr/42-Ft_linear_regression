@@ -1,5 +1,5 @@
 import sys
-import json #pour récupérer les thetas du json file dans lequel training.py a sauvegardé leurs valeurs
+import json
 import matplotlib.pyplot as plt #library used for data visualization
 import numpy as np #library used for computations
 
@@ -28,20 +28,18 @@ def load_thetas():
 
 def main():
 	'''Predicts the price of a car for a given mileage'''
-
 	try:
 		mileage = float(input("Enter a mileage: "))
 	except ValueError:
 		print("Invalid mileage: should be a numeric value")
+		sys.exit()
 	if (mileage < 0):
 		print("The mileage has to be positive.")
 		sys.exit()
-	if (mileage > 1000000):
-		print("No car has such a high mileage.")
-		sys.exit()
-
 	thetas = load_thetas()
 	predicted_price = thetas[1] * mileage + thetas[0]
+	if predicted_price < 0:
+		predicted_price = 0
 	print(f"Estimated price : {predicted_price}$")
 	plot_data(mileage, thetas, predicted_price)
 	

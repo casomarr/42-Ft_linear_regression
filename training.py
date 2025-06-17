@@ -21,20 +21,20 @@ def gradient_descent(mileage, price):
 	'''This function performs a gradient descent on the dataset.'''
 	curr_loss = 1e9 #initialised with a high value
 	prev_loss = 0.0
-	learning_rate = 0.01 #learning rate
+	learning_rate = 0.01 #learning rate should be low enough so that we don't skip the minimum and high enough so that we converge in a reasonable amount of time
 	epsilon = 0.0001 #convergence threshold
 	iteration = 0
 	max_iterations = 1000 #in case epsilon is not reached
 	w = 0 #thetas[1] -> w
 	b = 0 #thetas[0] -> b
 
-	while(abs(curr_loss - prev_loss) > epsilon and iteration < max_iterations): #we use the absolute value 
-		#of the difference so that if it becomes negative (and is therefore < epsilon) we don't exit the loop
+	while(abs(curr_loss - prev_loss) > epsilon and iteration < max_iterations): #we use the absolute value of the difference so that if it becomes negative (and is therefore < epsilon) we don't exit the loop
 
 		#we update the previous loss for the while loop condition
 		prev_loss = curr_loss
 		
-		# we compute the prediction and the gradients
+		#we compute the prediction and the gradients
+		#Thetas vs Gradients: thetas are what we’re trying to find vs gradients tell us how to update the thetas to minimize the error.
 		predictions = w * mileage + b
 		gradient_w = np.sum((predictions - price) * mileage) / len(price)
 		gradient_b = np.sum(predictions - price) / len(price)
@@ -45,7 +45,7 @@ def gradient_descent(mileage, price):
 
 		#we update the prediction with the new thetas and compute the loss
 		predictions = w * mileage + b
-		curr_loss = np.sum((predictions - price) ** 2) / (2 * len(price))
+		curr_loss = np.sum((predictions - price) ** 2) / (2 * len(price)) #we square the difference so that we dno't get negative values, otherwise two predictions that are the same but with opposite signs would cancel each other out
 
 		iteration += 1
 
@@ -80,15 +80,5 @@ def main():
 	plot_data(mileage, price, thetas)
 	save_thetas(thetas)#saves thetas to a json file to be used in prediction.py
 
-
-
-
-	
-
-
 if __name__ == "__main__":
 	main()
-
-
-#https://www.youtube.com/watch?v=rcl_YRyoLIY
-#https://www.geeksforgeeks.org/gradient-descent-algorithm-and-its-variants/
